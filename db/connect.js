@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost:27017/1923');
-mongoose.connect('mongodb://localhost/houtai',{ useNewUrlParser: true,useUnifiedTopology:true });
+mongoose.connect('mongodb://10.60.14.207:27017/houtai',{ useNewUrlParser: true,useUnifiedTopology:true });
 // 连接本地数据库
 var db = mongoose.connection;
 // 数据库连接对象

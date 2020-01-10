@@ -3,6 +3,10 @@ const router = express.Router()
 const  User = require('../db/model/userModel')
 const Mail=require('../utils/mail')
 const Jwt = require('../utils/jwt')
+
+const UserModel = require('../db/model/userModel')
+const UserAccessModel = require('../db/model/userAccess')
+
 let codes={} //保存邮箱和验证码
 
 //引入和用户表相关的数据模型
@@ -97,6 +101,31 @@ router.post('/getCode',(req,res)=>{
   .catch((err)=>{
    res.send(err)
   })
+})
+
+
+
+router.get('/getusers',async (req,res)=>{
+  let arrUser = await UserModel.find()
+  res.send({err:0,msg:'查询Ok',list:arrUser})
+})
+
+router.get('/getaccess',async (req,res)=>{
+ 
+  let arrAccess = await UserAccessModel.find()
+  res.send({err:0,msg:'查询ok',list:arrAccess})
+})
+
+router.post('/delaccess',async (req,res)=>{
+  let {id} = req.body.params
+  let delAccess = await UserAccessModel.deleteOne({_id:id})
+  res.send({err:0,msg:'删除ok'})
+})
+
+router.post('/addaccess',async (req,res)=>{
+  let {name,pro} = req.body.params
+  let addAccess = await UserAccessModel.insertMany({name,pro})
+  res.send({err:0,msg:'添加ok'})
 })
 
 module.exports = router
